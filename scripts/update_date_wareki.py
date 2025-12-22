@@ -5,7 +5,7 @@
 主な機能:
 - コマンドライン引数として単一のWordファイルまたはディレクトリのパスを受け取ります。
 - ディレクトリが指定された場合、`--pattern` オプションを使用して処理対象の.docxファイルをフィルタリングできます。
-  (例: `python update_date_wareki.py /path/to/folder --pattern "送付状_*.docx"`)
+  (例: `python scripts/update_date_wareki.py /path/to/folder --pattern "*.docx"`)
 - Word文書内の段落および表内のテキストから和暦の日付パターンを検出して置換します。
 - 置換後の日付は、`japanera` ライブラリを使用して自動的に「令和XX年XX月XX日」形式（「元年」対応）で生成されます。
 - 処理後、元のファイルを上書き保存します。
