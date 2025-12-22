@@ -18,20 +18,12 @@ Word文書内の和暦の日付を、スクリプトを実行した当日の日�
 
 #### 使い方
 
--   **単一のファイルの日付を更新する**
+-   **フォルダ内のすべての`.docxファイル`に記載されている日付を更新する**
+
     ```bash
-    python scripts/update_date_wareki.py /path/to/your/file.docx
+    python scripts/update_date_wareki.py /path/to/folder --pattern "*.docx"
     ```
 
--   **日付を更新して、そのまま印刷する (macOSのみ)**
-    ```bash
-    python scripts/update_date_wareki.py /path/to/your/file.docx --print
-    ```
-
--   **フォルダ内のすべての`.docx`ファイルの日付を更新する**
-    ```bash
-    python scripts/update_date_wareki.py /path/to/your/folder
-    ```
 
 ### 2. `print_word_document.py`
 
