@@ -12,48 +12,39 @@ pip install japanera python-docx pandas openpyxl xlrd
 
 ## スクリプト一覧
 
-### 1. `update_date_wareki.py`
+### 1. `update_date_wareki.py` (Word用)
 
 Word文書内の和暦の日付を、実行当日または指定した日付に自動で更新します。
 
 #### 使い方
 
--   **フォルダ内のすべての`.docxファイル`に記載されている日付を「今日」に更新する**
-
+-   **「今日」に更新する**
     ```bash
     python scripts/update_date_wareki.py /path/to/folder
     ```
--   **フォルダ内のすべての`.docxファイル`に記載されている日付を「指定した日」に更新する**
-
+-   **「指定した日」に更新する**
     ```bash
     python scripts/update_date_wareki.py /path/to/folder --date 2025-01-30
     ```
 
+### 2. `update_excel_date.py` (Excel用)
 
-### 2. `print_word_document.py`
-
-指定したWord文書やその他のファイル（PDFなど）を、macOSに設定されたデフォルトのプリンタで印刷します。
+`documents/manage` 内のExcelファイル（.xlsx）の特定セル（請求月、送金日）を、実行当日または指定した日付に更新します。
 
 #### 使い方
 
--   **単一のファイルを印刷する**
+-   **「今日」に更新する**
     ```bash
-    python scripts/print_word_document.py /path/to/your/file.docx
+    python scripts/update_excel_date.py documents/manage
     ```
-
--   **フォルダ内のすべての`.docx`ファイルを印刷する**
+-   **「指定した日」に更新する**
     ```bash
-    python scripts/print_word_document.py /path/to/your/folder
-    ```
-
--   **フォルダ内のPDFファイルをすべて印刷する**
-    ```bash
-    python scripts/print_word_document.py /path/to/your/folder --pattern "*.pdf"
+    python scripts/update_excel_date.py documents/manage --date 2026-02-01
     ```
 
 ### 3. `calculate_transfer_total.py`
 
-`documents/manage` 内にあるExcelファイルから銀行別の送金合計金額を算出します。ファイル名の先頭（「_」まで）を銀行名として集計します。
+`documents/manage` 内にあるExcelファイルから銀行別の送金合計金額を算出します。
 
 #### 使い方
 
@@ -61,4 +52,7 @@ Word文書内の和暦の日付を、実行当日または指定した日付に�
     ```bash
     python scripts/calculate_transfer_total.py
     ```
-    ※ 内部で `documents/manage` フォルダを参照します。
+
+### 4. `print_word_document.py`
+
+指定したWord文書やその他のファイルを、macOSに設定されたデフォルトのプリンタで印刷します。
