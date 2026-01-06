@@ -14,7 +14,7 @@
 import docx
 import re
 import os
-from datetime import date
+from datetime import date, datetime
 import argparse
 import glob
 
@@ -92,19 +92,28 @@ def main():
     メイン処理。コマンドライン引数を解釈してファイルやディレクトリを処理します。
     """
     parser = argparse.ArgumentParser(
-        description='Word文書 (.docx) 内の和暦の日付を今日の日付に更新します。',
+        description='Word文書 (.docx) 内の和暦の日付を今日の日付（または指定日）に更新します。',
         formatter_class=argparse.RawTextHelpFormatter
     )
     parser.add_argument('path', help='処理対象のWordファイルまたはディレクトリのパス。')
     parser.add_argument('--pattern', default='*.docx', help='ディレクトリ処理時のファイル名パターン。例: "送付状_*.docx" デフォルトは全ての.docxファイル ("*.docx")。')
+    parser.add_argument('--date', help='指定する場合の日付 (形式: YYYY-MM-DD)。省略時は今日の日付になります。', default=None)
     args = parser.parse_args()
 
     target_path = args.path
 
-    # 今日の日付を和暦文字列で生成
-    today = date.today()
+    # 日付の決定
+    if args.date:
+        try:
+            target_date = datetime.strptime(args.date, '%Y-%m-%d').date()
+        except ValueError:
+            print("エラー: 日付の形式が正しくありません。YYYY-MM-DD 形式で指定してください。")
+            return
+    else:
+        target_date = date.today()
+
     # EraDateオブジェクトは標準のdateオブジェクトから生成
-    era_date = EraDate.from_date(today)
+    era_date = EraDate.from_date(target_date)
     # era属性から元号名(漢字)を取得
     era_name = era_date.era.kanji
     # グレゴリオ暦の年から元号の開始年を引いて、元号の年を計算
@@ -113,7 +122,7 @@ def main():
     era_year_str = "元" if era_year == 1 else str(era_year)
     today_wareki_str = f"{era_name}{era_year_str}年{era_date.month}月{era_date.day}日"
     
-    print(f"置換後の日付: {today_wareki_str}\n")
+    print(f"設定する日付: {today_wareki_str}\n")
 
     files_to_process = []
     if os.path.isdir(target_path):
@@ -138,7 +147,7 @@ def main():
     # 各ファイルを処理
     for file_path in files_to_process:
         # Wordが作成する一時ファイル (~$で始まるファイル) を無視する
-        if not os.path.basename(file_path).startswith('~$'):
+        if not os.path.basename(file_path).startswith('~'):
             process_file(file_path, today_wareki_str)
 
     print("\nすべての処理が完了しました。")

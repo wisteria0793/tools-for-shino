@@ -14,14 +14,19 @@ pip install japanera python-docx pandas openpyxl xlrd
 
 ### 1. `update_date_wareki.py`
 
-Word文書内の和暦の日付を、スクリプトを実行した当日の日付に自動で更新します。
+Word文書内の和暦の日付を、実行当日または指定した日付に自動で更新します。
 
 #### 使い方
 
--   **フォルダ内のすべての`.docxファイル`に記載されている日付を更新する**
+-   **フォルダ内のすべての`.docxファイル`に記載されている日付を「今日」に更新する**
 
     ```bash
-    python scripts/update_date_wareki.py /path/to/folder --pattern "*.docx"
+    python scripts/update_date_wareki.py /path/to/folder
+    ```
+-   **フォルダ内のすべての`.docxファイル`に記載されている日付を「指定した日」に更新する**
+
+    ```bash
+    python scripts/update_date_wareki.py /path/to/folder --date 2025-01-30
     ```
 
 
