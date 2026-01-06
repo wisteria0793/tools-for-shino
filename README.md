@@ -1,13 +1,13 @@
 # tools-for-shino
 
-これは、Word文書に関連する日常的な作業を自動化するためのPythonスクリプト（ツール）を集めたリポジトリです。
+これは、業務に関連する日常的な作業を自動化するためのPythonスクリプト（ツール）を集めたリポジトリです。
 
 ## セットアップ
 
 一部のスクリプトは外部ライブラリに依存しています。以下のコマンドでインストールしてください。
 
 ```bash
-pip install japanera python-docx
+pip install japanera python-docx pandas openpyxl xlrd
 ```
 
 ## スクリプト一覧
@@ -45,3 +45,15 @@ Word文書内の和暦の日付を、スクリプトを実行した当日の日�
     ```bash
     python scripts/print_word_document.py /path/to/your/folder --pattern "*.pdf"
     ```
+
+### 3. `calculate_transfer_total.py`
+
+`documents/manage` 内にあるExcelファイルから銀行別の送金合計金額を算出します。ファイル名の先頭（「_」まで）を銀行名として集計します。
+
+#### 使い方
+
+-   **銀行別の送金合計を表示する**
+    ```bash
+    python scripts/calculate_transfer_total.py
+    ```
+    ※ 内部で `documents/manage` フォルダを参照します。
